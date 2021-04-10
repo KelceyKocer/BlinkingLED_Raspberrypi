@@ -1,0 +1,43 @@
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setwarnings(False)
+led_pin1 = 26
+led_pin2 = 27
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(led_pin1, GPIO.OUT)
+GPIO.setup(led_pin2, GPIO.OUT)
+
+def doBlink(num, delay):
+  print("Starting to blink %s times." % (num))
+  blink = True
+  for i in range(num):
+    if blink:
+      GPIO.output(led_pin1, GPIO.HIGH)
+      blink = False
+      time.sleep(0.5)
+      GPIO.output(led_pin1, GPIO.LOW)
+      blink = False
+      time.sleep(0.5)
+      GPIO.output(led_pin2, GPIO.HIGH)
+      blink = False
+      time.sleep(0.5)
+      GPIO.output(led_pin2, GPIO.LOW)
+      blink = False
+      time.sleep(0.5)
+    else:
+      GPIO.output(led_pin1, GPIO.LOW)
+      blink = True
+      time.sleep(0.5)
+      GPIO.output(led_pin2, GPIO.LOW)
+      blink = True
+      time.sleep(0.5)
+      
+   print("Blinking complete!")
+   GPIO.output(led_pin1, GPIO.LOW)
+   GPIO.output(led_pin2, GPIO.LOW)
+def leave():
+  GPIO.cleanup()
+  exit()
+doBlink(10,1)
+leave()
